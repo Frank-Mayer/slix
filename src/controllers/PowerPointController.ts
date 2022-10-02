@@ -14,7 +14,7 @@ export class PowerPointController<
   private onKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "ArrowRight":
-      case "Space":
+      case " ":
         this.next();
         break;
       case "ArrowLeft":
