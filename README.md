@@ -25,8 +25,7 @@ React powered Slides Framework
 1. Call the `slix` function with a query selector for the element you want to render the slides in.
 
 ```typescript
-import { slix, React } from "slix";
-import { ArrowController } from "slix/controllers";
+import { slix, ArrowController } from "slix";
 
 const slixPromise = slix("#root", {
   slides: new Map([

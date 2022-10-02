@@ -21,7 +21,7 @@ if (document.querySelector("link[rel='icon']") === null) {
   document.head.appendChild(faviconEl);
 }
 
-const slix = <KEY extends SlixKey>(
+export const slix = <KEY extends SlixKey>(
   rootElement: string | Element,
   slixProps: SlixProps<KEY>
 ) => {
@@ -45,5 +45,6 @@ const slix = <KEY extends SlixKey>(
   return slixInternal.slixPromiseWrapper.promise;
 };
 
-export { slix, Slix };
+export * from "./Slix";
+export * from "./controllers/index";
 export default slix;
