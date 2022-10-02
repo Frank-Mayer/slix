@@ -53,3 +53,7 @@ slixPromise.then((slixInstance) => {
   ArrowController.attach(slixInstance);
 });
 ```
+
+## Recommended Libraries
+
+- [howler](https://www.npmjs.com/package/howler) to play audio
