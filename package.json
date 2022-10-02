@@ -1,6 +1,6 @@
 {
   "name": "@frank-mayer/slix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React powered Slides Framework",
   "main": "index.tsx",
   "private": false,
@@ -18,13 +18,16 @@
     "url": "https://github.com/Frank-Mayer/slix/issues"
   },
   "homepage": "https://github.com/Frank-Mayer/slix#readme",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^4.8.4"
   }
 }

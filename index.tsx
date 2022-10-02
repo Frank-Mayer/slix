@@ -4,6 +4,23 @@ import { Slix } from "./Slix";
 import type { SlixKey, Props as SlixProps, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
 
+// ensure title exists
+if (document.getElementsByTagName("title").length === 0) {
+  const titleEl = document.createElement("title");
+  titleEl.innerText = "Slix";
+  document.head.appendChild(titleEl);
+}
+
+// ensure favicon exists
+if (document.querySelector("link[rel='icon']") === null) {
+  const faviconEl = document.createElement("link");
+  faviconEl.rel = "icon";
+  faviconEl.href =
+    "https://raw.githubusercontent.com/Frank-Mayer/slix/main/favicon.svg";
+  faviconEl.type = "image/svg+xml";
+  document.head.appendChild(faviconEl);
+}
+
 const slix = <KEY extends SlixKey>(
   rootElement: string | Element,
   slixProps: SlixProps<KEY>
@@ -28,5 +45,5 @@ const slix = <KEY extends SlixKey>(
   return slixInternal.slixPromiseWrapper.promise;
 };
 
-export { React, slix, Slix };
+export { slix, Slix };
 export default slix;
