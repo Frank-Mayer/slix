@@ -2,6 +2,14 @@
 
 React powered Slides Framework
 
+## Installation
+
+```bash
+npm install @frank-mayer/slix react react-dom
+```
+
+Use a bundler like webpack or parcel to bundle your code.
+
 ## Usage
 
 1. Create a element in your html file where you want the slides to be rendered.
