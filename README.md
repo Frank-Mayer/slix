@@ -22,9 +22,9 @@ React powered Slides Framework
 </html>
 ```
 
-1. Call the `slix` function with a query selector for the element you want to render the slides in.
+Call the `slix` function with a query selector for the element you want to render the slides in.
 
-```typescript
+```tsx
 import { slix, ArrowController } from "slix";
 
 const slixPromise = slix("#root", {
