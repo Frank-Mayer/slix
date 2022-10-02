@@ -1,13 +1,23 @@
 import type { Slix, SlixKey } from "../Slix";
 
+export const controllerRegistry = new FinalizationRegistry<BaseController<any>>(
+  (controller) => {
+    controller.dispose();
+  }
+);
+
 export abstract class BaseController<KEY extends SlixKey> {
-  private _slixEl: Slix<KEY>;
+  private _slixEl: WeakRef<Slix<KEY>>;
   public get slixEl(): Slix<KEY> {
-    return this._slixEl;
+    const slixEl = this._slixEl.deref();
+    if (!slixEl) {
+      this.dispose();
+    }
+    return slixEl!;
   }
 
   constructor(slixEl: Slix<KEY>) {
-    this._slixEl = slixEl;
+    this._slixEl = new WeakRef(slixEl);
   }
 
   public next(): void {
@@ -25,4 +35,6 @@ export abstract class BaseController<KEY extends SlixKey> {
       this.slixEl.currentSlide = slides[currentIndex - 1];
     }
   }
+
+  public abstract dispose(): void;
 }

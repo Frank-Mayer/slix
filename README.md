@@ -42,6 +42,6 @@ Add a controller to the slix instance, you can add multiple controllers. Base cl
 
 ```typescript
 slixPromise.then((slixInstance) => {
-  (window as any).controller = new ArrowController(slixInstance);
+  ArrowController.attach(slixInstance);
 });
 ```
