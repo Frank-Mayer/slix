@@ -1,0 +1,29 @@
+{
+  "name": "slix",
+  "version": "1.0.0",
+  "description": "React powered Slides Framework",
+  "main": "index.tsx",
+  "scripts": {
+    "dev": "parcel src/index.html --open",
+    "build": "parcel build src/index.html --no-source-maps --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frank-Mayer/slix.git"
+  },
+  "author": "Frank-Mayer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Frank-Mayer/slix/issues"
+  },
+  "homepage": "https://github.com/Frank-Mayer/slix#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "typescript": "^4.8.4"
+  }
+}
