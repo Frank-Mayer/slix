@@ -1,0 +1,16 @@
+:root,
+body {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
