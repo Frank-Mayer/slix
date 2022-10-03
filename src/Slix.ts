@@ -1,6 +1,7 @@
 import React from "react";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
 import type { ISlixComp } from "./ISlixComp";
+import * as WindowManager from "./lib/WindowManager";
 
 export type SlixKey = string | number;
 
@@ -38,6 +39,15 @@ export class Slix<KEY extends SlixKey>
     if (this._slides.has(slide)) {
       this.setState({ ...this.state, currentSlide: slide });
       window.location.hash = JSON.stringify(slide);
+      for (const childWindow of WindowManager.getChildWindows()) {
+        childWindow.postMessage(
+          {
+            type: "slix:set:currentSlide",
+            value: slide,
+          },
+          window.origin
+        );
+      }
     } else {
       console.warn(`Slide "${slide}" not found`);
     }
@@ -51,9 +61,9 @@ export class Slix<KEY extends SlixKey>
     };
     this._internal = props.internal;
 
-    window.addEventListener("message", (event) => {
-      if (event.data.type === "slix:set:currentSlide") {
-        this.currentSlide = event.data.value;
+    window.addEventListener("message", (ev) => {
+      if (ev.data.type === "slix:set:currentSlide") {
+        this.setState({ ...this.state, currentSlide: ev.data.value });
       }
     });
   }

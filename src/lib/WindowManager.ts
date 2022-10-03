@@ -3,6 +3,7 @@ export const isChild =
   window.opener.location.origin === window.location.origin;
 
 const children = new Array<Window>();
+export const getChildWindows = () => children as ReadonlyArray<Window>;
 
 export const getParent = (): Window => {
   if (isChild) {

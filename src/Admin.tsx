@@ -53,6 +53,14 @@ export class Admin<KEY extends SlixKey>
     this._slides = props.slides;
     this._parent = props.parent;
     this._internal = props.internal;
+
+    window.addEventListener("message", (ev) => {
+      if (ev.source === this._parent) {
+        if (ev.data.type === "slix:set:currentSlide") {
+          this.setState({ ...this.state, currentSlide: ev.data.value });
+        }
+      }
+    });
   }
 
   render() {
