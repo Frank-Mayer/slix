@@ -4,6 +4,7 @@ import { Slix } from "./Slix";
 import { Admin } from "./Admin";
 import type { SlixKey, Props as SlixProps, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
+import { AnimatePresence } from "framer-motion";
 import * as PalentalManager from "./lib/PalentalManager";
 
 // ensure title exists
@@ -43,20 +44,22 @@ export const slix = <KEY extends SlixKey>(
   };
 
   ReactDOM.createRoot(rootEl).render(
-    PalentalManager.isChild ? (
-      <Admin
-        slides={slixProps.slides}
-        currentSlide={slixProps.initialSlide}
-        identifier={rootElementSelector}
-        parent={PalentalManager.getParent()}
-      />
-    ) : (
-      <Slix
-        {...slixProps}
-        identifier={rootElementSelector}
-        internal={slixInternal}
-      />
-    )
+    <AnimatePresence mode="wait">
+      {PalentalManager.isChild ? (
+        <Admin
+          slides={slixProps.slides}
+          currentSlide={slixProps.initialSlide}
+          identifier={rootElementSelector}
+          parent={PalentalManager.getParent()}
+        />
+      ) : (
+        <Slix
+          {...slixProps}
+          identifier={rootElementSelector}
+          internal={slixInternal}
+        />
+      )}
+    </AnimatePresence>
   );
 
   return slixInternal.slixPromiseWrapper.promise;
