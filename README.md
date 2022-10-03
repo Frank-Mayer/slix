@@ -41,7 +41,7 @@ Use a bundler like parcel or webpack to bundle your code.
 ```tsx
 import { slix, resetCss, ArrowController } from "@frank-mayer/slix";
 
-slix("#root", {
+slix({
   slides: new Map([
     [1, <h1>Slide 1</h1>],
     [2, <h1>Slide 2</h1>],
