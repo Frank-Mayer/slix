@@ -54,6 +54,11 @@ slixPromise.then((slixInstance) => {
 });
 ```
 
+## Dependencies
+
+- [React](https://reactjs.org)
+- [Framer Motion](https://www.framer.com/motion) for animations and transitions
+
 ## Recommended Libraries
 
 - [howler](https://www.npmjs.com/package/howler) to play audio

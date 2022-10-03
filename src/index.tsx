@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Slix } from "./Slix";
 import type { SlixKey, Props as SlixProps, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
+import { AnimatePresence } from "framer-motion";
 
 // ensure title exists
 if (document.getElementsByTagName("title").length === 0) {
@@ -39,7 +40,9 @@ export const slix = <KEY extends SlixKey>(
   };
 
   ReactDOM.createRoot(rootEl).render(
-    <Slix {...slixProps} internal={slixInternal} />
+    <AnimatePresence mode="wait">
+      <Slix {...slixProps} internal={slixInternal} />
+    </AnimatePresence>
   );
 
   return slixInternal.slixPromiseWrapper.promise;
