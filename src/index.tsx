@@ -24,6 +24,13 @@ if (document.querySelector("link[rel='icon']") === null) {
   document.head.appendChild(faviconEl);
 }
 
+// ensure style body has background color
+{
+  const styleEl = document.createElement("style");
+  styleEl.innerText = `:root, body { background-color: #ffffff; }`;
+  document.head.appendChild(styleEl);
+}
+
 export const slix = <KEY extends SlixKey>(
   rootElementSelector: string,
   slixProps: {
