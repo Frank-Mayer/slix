@@ -80,7 +80,7 @@ resetCss();
 
 ## Keyboard controls
 
-| Key | Action                                                                       |
-| --- | ---------------------------------------------------------------------------- |
-| `.` | Open control panel                                                           |
-| `f` | Start fullscreen (body element needs to have a background, default is black) |
+| Key | Action             |
+| --- | ------------------ |
+| `.` | Open control panel |
+| `f` | Start fullscreen   |

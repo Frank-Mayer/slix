@@ -27,7 +27,7 @@ if (!isChild) {
       case "f":
         {
           console.log("f key pressed, full screen");
-          document.body.requestFullscreen();
+          document.documentElement.requestFullscreen();
         }
         break;
 
