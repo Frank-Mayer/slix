@@ -1,14 +1,19 @@
-import type { Slix, SlixKey } from "../Slix";
+import type { ISlixComp } from "../ISlixComp";
+import { getSlixRoot } from "../lib/slixRoot";
+import * as WindowManager from "../lib/WindowManager";
+import type { SlixKey } from "../Slix";
 import { BaseController, controllerRegistry } from "./BaseController";
 
 export class PowerPointController<
   KEY extends SlixKey
 > extends BaseController<KEY> {
-  constructor(slixEl: Slix<KEY>) {
+  constructor(slixEl: ISlixComp<KEY>) {
     super(slixEl);
 
     window.addEventListener("keydown", this.onKeyDown);
-    slixEl.slides.addEventListener("click", this.onClick);
+    if (!WindowManager.isChild) {
+      getSlixRoot().addEventListener("click", this.onClick);
+    }
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
@@ -29,12 +34,14 @@ export class PowerPointController<
     }
   };
 
-  public static attach<KEY extends SlixKey>(slixEl: Slix<KEY>) {
+  public static attach<KEY extends SlixKey>(slixEl: ISlixComp<KEY>) {
     controllerRegistry.register(slixEl, new PowerPointController(slixEl));
   }
 
   dispose() {
     window.removeEventListener("keydown", this.onKeyDown);
-    window.removeEventListener("mousedown", this.onClick);
+    if (!WindowManager.isChild) {
+      getSlixRoot().removeEventListener("click", this.onClick);
+    }
   }
 }

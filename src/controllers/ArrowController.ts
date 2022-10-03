@@ -1,8 +1,9 @@
-import type { Slix, SlixKey } from "../Slix";
+import type { ISlixComp } from "../ISlixComp";
+import type { SlixKey } from "../Slix";
 import { BaseController, controllerRegistry } from "./BaseController";
 
 export class ArrowController<KEY extends SlixKey> extends BaseController<KEY> {
-  constructor(slixEl: Slix<KEY>) {
+  constructor(slixEl: ISlixComp<KEY>) {
     super(slixEl);
 
     window.addEventListener("keydown", this.onKeyDown);
@@ -16,7 +17,7 @@ export class ArrowController<KEY extends SlixKey> extends BaseController<KEY> {
     }
   };
 
-  public static attach<KEY extends SlixKey>(slixEl: Slix<KEY>) {
+  public static attach<KEY extends SlixKey>(slixEl: ISlixComp<KEY>) {
     controllerRegistry.register(slixEl, new ArrowController(slixEl));
   }
 

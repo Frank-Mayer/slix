@@ -12,7 +12,7 @@ Use a bundler like parcel or webpack to bundle your code.
 
 ## Usage
 
-1. Create a element in your html file where you want the slides to be rendered.
+1. Create a index.html file without any content in its body.
 1. Link your index.tsx file.
 
 ```html
@@ -24,13 +24,12 @@ Use a bundler like parcel or webpack to bundle your code.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <main id="root"><!-- Render slides here --></main>
     <script src="index.tsx" type="module"></script>
   </body>
 </html>
 ```
 
-1. Call the `slix` function with a query selector for the element you want to render the slides in. This function returns a promise to the Slix instance, which you can use to control the slides.
+1. Call the `slix` function with the slides you want to be rendered. This function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to the Slix instance, which you can use to control the slides. The [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) resolves when the first slide is rendered.
 1. Add a [controller](#controllers) to the slix instance, this includes basic navigation features. You can add multiple [controllers](#controllers) to a Slix instance. Base class is `BaseController`, you can extend it to create your own [controller](#controllers).
 1. You can use the included style reset by calling the `resetCss` function if you want to.
 

@@ -73,7 +73,7 @@ export class Admin<KEY extends SlixKey>
             overflowY: "scroll",
             height: "477.5vh",
             width: "calc(100vw + 24px)",
-            transform: "translate(-41vw, -190vh) scale(0.2)",
+            transform: "translate(-40vw, -190vh) scale(0.2)",
             display: "grid",
             gap: "5vmin",
             listStyle: "none",

@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { AnimatePresence } from "framer-motion";
 import { Slix } from "./Slix";
 import { Admin } from "./Admin";
 import type { SlixKey, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
 import * as WindowManager from "./lib/WindowManager";
+import { setSlixRoot } from "./lib/slixRoot";
 
 // ensure title exists
 if (document.getElementsByTagName("title").length === 0) {
@@ -40,6 +42,7 @@ export const slix = <KEY extends SlixKey>(slixProps: {
 }) => {
   const rootEl = document.createElement("main");
   document.body.appendChild(rootEl);
+  setSlixRoot(rootEl);
 
   if (!rootEl) {
     throw new Error("Root element not found");

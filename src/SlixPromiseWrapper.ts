@@ -1,4 +1,4 @@
-import { ISlixComp } from "./ISlixComp";
+import type { ISlixComp } from "./ISlixComp";
 import type { SlixKey } from "./Slix";
 
 export class SlixPromiseWrapper<KEY extends SlixKey> {
