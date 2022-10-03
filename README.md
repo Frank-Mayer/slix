@@ -54,6 +54,14 @@ slixPromise.then((slixInstance) => {
 });
 ```
 
+You can use the included style reset if you want to.
+
+```typescript
+import { resetCss } from "@frank-mayer/slix";
+
+resetCss();
+```
+
 ## Dependencies
 
 - [React](https://reactjs.org)

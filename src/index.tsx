@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Slix } from "./Slix";
 import { Admin } from "./Admin";
-import type { SlixKey, Props as SlixProps, SlixInternal } from "./Slix";
+import type { SlixKey, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
 import { AnimatePresence } from "framer-motion";
 import * as PalentalManager from "./lib/PalentalManager";
@@ -25,11 +25,15 @@ if (document.querySelector("link[rel='icon']") === null) {
 }
 
 // ensure style body has background color
-{
+export const resetCss = async () => {
   const styleEl = document.createElement("style");
-  styleEl.innerText = `:root, body { background-color: #ffffff; }`;
+  styleEl.innerHTML = await (
+    await fetch(
+      "https://raw.githubusercontent.com/Frank-Mayer/slix/main/dist/reset.css"
+    )
+  ).text();
   document.head.appendChild(styleEl);
-}
+};
 
 export const slix = <KEY extends SlixKey>(
   rootElementSelector: string,
