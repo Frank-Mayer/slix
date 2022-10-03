@@ -2,6 +2,11 @@
 
 React powered Slides Framework
 
+## Demo
+
+- [Code](https://github.com/Frank-Mayer/slix-demo)
+- [Live](https://Frank-Mayer.github.io/slix-demo)
+
 ## Installation
 
 ```bash
