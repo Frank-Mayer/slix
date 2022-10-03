@@ -1,4 +1,3 @@
-import { isChild } from "../lib/PalentalManager";
 import type { Slix, SlixKey } from "../Slix";
 import { BaseController, controllerRegistry } from "./BaseController";
 
@@ -18,9 +17,7 @@ export class ArrowController<KEY extends SlixKey> extends BaseController<KEY> {
   };
 
   public static attach<KEY extends SlixKey>(slixEl: Slix<KEY>) {
-    if (!isChild) {
-      controllerRegistry.register(slixEl, new ArrowController(slixEl));
-    }
+    controllerRegistry.register(slixEl, new ArrowController(slixEl));
   }
 
   dispose() {

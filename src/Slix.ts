@@ -1,12 +1,12 @@
 import React from "react";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
+import type { ISlixComp } from "./ISlixComp";
 
 export type SlixKey = string | number;
 
 export type Props<KEY extends SlixKey> = {
   slides: Map<KEY, React.ReactNode>;
   initialSlide: KEY;
-  identifier: string;
 };
 
 export type State<KEY extends SlixKey> = {
@@ -17,10 +17,13 @@ export type SlixInternal<KEY extends SlixKey> = {
   slixPromiseWrapper: SlixPromiseWrapper<KEY>;
 };
 
-export class Slix<KEY extends SlixKey> extends React.Component<
-  Props<KEY> & { internal: SlixInternal<KEY> },
-  State<KEY>
-> {
+export class Slix<KEY extends SlixKey>
+  extends React.Component<
+    Props<KEY> & { internal: SlixInternal<KEY> },
+    State<KEY>
+  >
+  implements ISlixComp<KEY>
+{
   protected readonly _slides: Map<KEY, React.ReactNode>;
   public get slides(): ReadonlyArray<KEY> {
     return Array.from(this._slides.keys());
@@ -31,11 +34,10 @@ export class Slix<KEY extends SlixKey> extends React.Component<
   public get currentSlide(): KEY {
     return this.state.currentSlide;
   }
-  private readonly _identifier: string;
-
   public set currentSlide(slide: KEY) {
     if (this._slides.has(slide)) {
       this.setState({ ...this.state, currentSlide: slide });
+      window.location.hash = JSON.stringify(slide);
     } else {
       console.warn(`Slide "${slide}" not found`);
     }
@@ -48,13 +50,10 @@ export class Slix<KEY extends SlixKey> extends React.Component<
       currentSlide: props.initialSlide,
     };
     this._internal = props.internal;
-    this._identifier = props.identifier;
 
     window.addEventListener("message", (event) => {
-      if (event.data.identifier === this._identifier) {
-        if (event.data.type === "slix:set:currentSlide") {
-          this.currentSlide = event.data.value;
-        }
+      if (event.data.type === "slix:set:currentSlide") {
+        this.currentSlide = event.data.value;
       }
     });
   }

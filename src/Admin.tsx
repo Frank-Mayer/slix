@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import { vp } from "./lib/style";
-import type { SlixKey } from "./Slix";
+import type { SlixInternal, SlixKey } from "./Slix";
+import type { ISlixComp } from "./ISlixComp";
 
 type Props<KEY extends SlixKey> = {
   slides: Map<KEY, React.ReactNode>;
   currentSlide: KEY;
-  identifier: string;
   parent: Window;
+  internal: SlixInternal<KEY>;
 };
 
 export type State<KEY extends SlixKey> = {
   currentSlide: KEY;
 };
 
-export class Admin<KEY extends SlixKey> extends Component<
-  Props<KEY>,
-  State<KEY>
-> {
+export class Admin<KEY extends SlixKey>
+  extends Component<Props<KEY>, State<KEY>>
+  implements ISlixComp<KEY>
+{
   protected readonly _slides: Map<KEY, React.ReactNode>;
-  protected readonly _identifier: string;
+  public get slides(): ReadonlyArray<KEY> {
+    return Array.from(this._slides.keys());
+  }
+
   protected readonly _parent: Window;
+  private readonly _internal: SlixInternal<KEY>;
 
   public get currentSlide(): KEY {
     return this.state.currentSlide;
@@ -31,7 +36,6 @@ export class Admin<KEY extends SlixKey> extends Component<
       this._parent.postMessage(
         {
           type: "slix:set:currentSlide",
-          identifier: this._identifier,
           value: slide,
         },
         window.origin
@@ -47,11 +51,12 @@ export class Admin<KEY extends SlixKey> extends Component<
       currentSlide: props.currentSlide,
     };
     this._slides = props.slides;
-    this._identifier = props.identifier;
     this._parent = props.parent;
+    this._internal = props.internal;
   }
 
   render() {
+    this._internal.slixPromiseWrapper.resolve(this);
     return (
       <>
         <ul

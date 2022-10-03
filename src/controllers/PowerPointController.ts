@@ -1,4 +1,3 @@
-import { isChild } from "../lib/PalentalManager";
 import type { Slix, SlixKey } from "../Slix";
 import { BaseController, controllerRegistry } from "./BaseController";
 
@@ -9,7 +8,7 @@ export class PowerPointController<
     super(slixEl);
 
     window.addEventListener("keydown", this.onKeyDown);
-    window.addEventListener("mousedown", this.onMouseDown);
+    slixEl.slides.addEventListener("click", this.onClick);
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
@@ -24,20 +23,18 @@ export class PowerPointController<
     }
   };
 
-  private onMouseDown = (e: MouseEvent) => {
+  private onClick = (e: MouseEvent) => {
     if (e.button === 0) {
       this.next();
     }
   };
 
   public static attach<KEY extends SlixKey>(slixEl: Slix<KEY>) {
-    if (!isChild) {
-      controllerRegistry.register(slixEl, new PowerPointController(slixEl));
-    }
+    controllerRegistry.register(slixEl, new PowerPointController(slixEl));
   }
 
   dispose() {
     window.removeEventListener("keydown", this.onKeyDown);
-    window.removeEventListener("mousedown", this.onMouseDown);
+    window.removeEventListener("mousedown", this.onClick);
   }
 }

@@ -4,8 +4,7 @@ import { Slix } from "./Slix";
 import { Admin } from "./Admin";
 import type { SlixKey, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
-import { AnimatePresence } from "framer-motion";
-import * as PalentalManager from "./lib/PalentalManager";
+import * as WindowManager from "./lib/WindowManager";
 
 // ensure title exists
 if (document.getElementsByTagName("title").length === 0) {
@@ -35,16 +34,12 @@ export const resetCss = async () => {
   document.head.appendChild(styleEl);
 };
 
-export const slix = <KEY extends SlixKey>(
-  rootElementSelector: string,
-  slixProps: {
-    slides: Map<KEY, React.ReactNode>;
-    initialSlide: KEY;
-  }
-) => {
-  const rootEl = document.querySelector(
-    rootElementSelector
-  ) as HTMLElement | null;
+export const slix = <KEY extends SlixKey>(slixProps: {
+  slides: Map<KEY, React.ReactNode>;
+  initialSlide: KEY;
+}) => {
+  const rootEl = document.createElement("main");
+  document.body.appendChild(rootEl);
 
   if (!rootEl) {
     throw new Error("Root element not found");
@@ -54,21 +49,21 @@ export const slix = <KEY extends SlixKey>(
     slixPromiseWrapper: new SlixPromiseWrapper<KEY>(),
   };
 
+  const hash = window.location.hash.replace(/^#/, "");
+
+  const currentSlide = hash ? JSON.parse(hash) : slixProps.initialSlide;
+
   ReactDOM.createRoot(rootEl).render(
     <AnimatePresence mode="wait">
-      {PalentalManager.isChild ? (
+      {WindowManager.isChild ? (
         <Admin
           slides={slixProps.slides}
-          currentSlide={slixProps.initialSlide}
-          identifier={rootElementSelector}
-          parent={PalentalManager.getParent()}
-        />
-      ) : (
-        <Slix
-          {...slixProps}
-          identifier={rootElementSelector}
+          currentSlide={currentSlide}
+          parent={WindowManager.getParent()}
           internal={slixInternal}
         />
+      ) : (
+        <Slix {...slixProps} internal={slixInternal} />
       )}
     </AnimatePresence>
   );

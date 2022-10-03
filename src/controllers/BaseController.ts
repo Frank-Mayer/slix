@@ -1,4 +1,5 @@
-import type { Slix, SlixKey } from "../Slix";
+import type { ISlixComp } from "../ISlixComp";
+import type { SlixKey } from "../Slix";
 
 export const controllerRegistry = new FinalizationRegistry<BaseController<any>>(
   (controller) => {
@@ -7,8 +8,8 @@ export const controllerRegistry = new FinalizationRegistry<BaseController<any>>(
 );
 
 export abstract class BaseController<KEY extends SlixKey> {
-  private _slixEl: WeakRef<Slix<KEY>>;
-  public get slixEl(): Slix<KEY> {
+  private _slixEl: WeakRef<ISlixComp<KEY>>;
+  public get slixEl(): ISlixComp<KEY> {
     const slixEl = this._slixEl.deref();
     if (!slixEl) {
       this.dispose();
@@ -16,7 +17,7 @@ export abstract class BaseController<KEY extends SlixKey> {
     return slixEl!;
   }
 
-  constructor(slixEl: Slix<KEY>) {
+  constructor(slixEl: ISlixComp<KEY>) {
     this._slixEl = new WeakRef(slixEl);
   }
 
