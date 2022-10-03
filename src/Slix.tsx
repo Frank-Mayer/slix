@@ -6,6 +6,7 @@ export type SlixKey = string | number;
 export type Props<KEY extends SlixKey> = {
   slides: Map<KEY, React.ReactNode>;
   initialSlide: KEY;
+  identifier: string;
 };
 
 export type State<KEY extends SlixKey> = {
@@ -20,16 +21,17 @@ export class Slix<KEY extends SlixKey> extends React.Component<
   Props<KEY> & { internal: SlixInternal<KEY> },
   State<KEY>
 > {
-  protected _slides: Map<KEY, React.ReactNode>;
+  protected readonly _slides: Map<KEY, React.ReactNode>;
   public get slides(): ReadonlyArray<KEY> {
     return Array.from(this._slides.keys());
   }
 
-  private _internal: SlixInternal<KEY>;
+  private readonly _internal: SlixInternal<KEY>;
 
   public get currentSlide(): KEY {
     return this.state.currentSlide;
   }
+  private readonly _identifier: string;
 
   public set currentSlide(slide: KEY) {
     if (this._slides.has(slide)) {
@@ -46,6 +48,15 @@ export class Slix<KEY extends SlixKey> extends React.Component<
       currentSlide: props.initialSlide,
     };
     this._internal = props.internal;
+    this._identifier = props.identifier;
+
+    window.addEventListener("message", (event) => {
+      if (event.data.identifier === this._identifier) {
+        if (event.data.type === "slix:set:currentSlide") {
+          this.currentSlide = event.data.value;
+        }
+      }
+    });
   }
 
   render(): React.ReactNode {
