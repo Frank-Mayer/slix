@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Slix } from "./Slix";
+import { Admin } from "./Admin";
 import type { SlixKey, Props as SlixProps, SlixInternal } from "./Slix";
 import { SlixPromiseWrapper } from "./SlixPromiseWrapper";
 import { AnimatePresence } from "framer-motion";
+import * as PalentalManager from "./lib/PalentalManager";
 
 // ensure title exists
 if (document.getElementsByTagName("title").length === 0) {
@@ -23,13 +25,15 @@ if (document.querySelector("link[rel='icon']") === null) {
 }
 
 export const slix = <KEY extends SlixKey>(
-  rootElement: string | Element,
-  slixProps: SlixProps<KEY>
+  rootElementSelector: string,
+  slixProps: {
+    slides: Map<KEY, React.ReactNode>;
+    initialSlide: KEY;
+  }
 ) => {
-  const rootEl =
-    typeof rootElement === "string"
-      ? document.querySelector(rootElement)
-      : rootElement;
+  const rootEl = document.querySelector(
+    rootElementSelector
+  ) as HTMLElement | null;
 
   if (!rootEl) {
     throw new Error("Root element not found");
@@ -41,7 +45,20 @@ export const slix = <KEY extends SlixKey>(
 
   ReactDOM.createRoot(rootEl).render(
     <AnimatePresence mode="wait">
-      <Slix {...slixProps} internal={slixInternal} />
+      {PalentalManager.isChild ? (
+        <Admin
+          slides={slixProps.slides}
+          currentSlide={slixProps.initialSlide}
+          identifier={rootElementSelector}
+          parent={PalentalManager.getParent()}
+        />
+      ) : (
+        <Slix
+          {...slixProps}
+          identifier={rootElementSelector}
+          internal={slixInternal}
+        />
+      )}
     </AnimatePresence>
   );
 
