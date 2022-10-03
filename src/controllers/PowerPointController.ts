@@ -1,3 +1,4 @@
+import { isChild } from "../lib/PalentalManager";
 import type { Slix, SlixKey } from "../Slix";
 import { BaseController, controllerRegistry } from "./BaseController";
 
@@ -30,7 +31,9 @@ export class PowerPointController<
   };
 
   public static attach<KEY extends SlixKey>(slixEl: Slix<KEY>) {
-    controllerRegistry.register(slixEl, new PowerPointController(slixEl));
+    if (!isChild) {
+      controllerRegistry.register(slixEl, new PowerPointController(slixEl));
+    }
   }
 
   dispose() {
