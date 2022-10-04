@@ -87,13 +87,14 @@ export class Admin<KEY extends SlixKey>
               style={vp({
                 pointerEvents: "all",
                 padding: "0",
-                margin: "0",
+                margin: "1vmin",
                 width: "100vw",
                 height: "100vh",
                 cursor: "pointer",
-                borderWidth: "2px",
-                borderStyle: "solid",
-                borderColor: this.currentSlide === key ? "red" : "black",
+                boxShadow:
+                  this.currentSlide === key
+                    ? "salmon 0px 0px 25vmin 1vmin"
+                    : "none",
                 overflow: "hidden",
               })}
               onClick={() => (this.currentSlide = key)}
@@ -105,6 +106,7 @@ export class Admin<KEY extends SlixKey>
                   width: "100%",
                   height: "100%",
                   display: "block",
+                  overflow: "hidden",
                 })}
               >
                 {slideComp}
