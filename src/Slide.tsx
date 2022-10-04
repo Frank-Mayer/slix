@@ -1,4 +1,5 @@
 import React from "react";
+import type { FunctionComponent } from "react";
 import { motion } from "framer-motion";
 import type { IAnimation } from "./animations";
 
@@ -8,7 +9,7 @@ type Props = {
   style?: React.CSSProperties;
 };
 
-export const Slide = (props: Props) => {
+export const Slide: FunctionComponent<Props> = (props: Props) => {
   const style = structuredClone(props.style);
   if (typeof style.height === "undefined") {
     style.minHeight ??= "100vh";
