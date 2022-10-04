@@ -1,6 +1,6 @@
 {
   "name": "@frank-mayer/slix",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "React powered Slides Framework",
   "source": "src/index.tsx",
   "main": "dist/index.js",
