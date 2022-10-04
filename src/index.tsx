@@ -76,4 +76,6 @@ export const slix = <KEY extends SlixKey>(slixProps: {
 
 export * from "./Slix";
 export * from "./controllers/index";
+export * from "./animations/index";
+export * from "./Slide";
 export default slix;
