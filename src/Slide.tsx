@@ -18,7 +18,11 @@ export const Slide = (props: Props) => {
   }
 
   return (
-    <motion.div {...props.transition} style={style} key={JSON.stringify(props)}>
+    <motion.div
+      {...props.transition}
+      style={style}
+      key={JSON.stringify(props) + new Error().stack}
+    >
       {props.children}
     </motion.div>
   );

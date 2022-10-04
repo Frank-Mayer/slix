@@ -39,14 +39,34 @@ Use a bundler like parcel or webpack to bundle your code.
 1. You can use the included style reset by calling the `resetCss` function if you want to.
 
 ```tsx
-import { slix, resetCss, ArrowController } from "@frank-mayer/slix";
+import { slix, resetCss, ArrowController, Slide } from "@frank-mayer/slix";
 
 slix({
   slides: new Map([
-    [1, <h1>Slide 1</h1>],
-    [2, <h1>Slide 2</h1>],
-    [3, <h1>Slide 3</h1>],
-    [4, <h1>Slide 4</h1>],
+    [
+      1,
+      <Slide>
+        <h1>Slide 1</h1>
+      </Slide>,
+    ],
+    [
+      2,
+      <Slide>
+        <h1>Slide 2</h1>
+      </Slide>,
+    ],
+    [
+      3,
+      <Slide>
+        <h1>Slide 3</h1>
+      </Slide>,
+    ],
+    [
+      4,
+      <Slide>
+        <h1>Slide 4</h1>
+      </Slide>,
+    ],
   ]),
   initialSlide: 1,
 }).then((slixInstance) => {
