@@ -52,7 +52,7 @@ export const slix = <KEY extends SlixKey>(slixProps: {
     slixPromiseWrapper: new SlixPromiseWrapper<KEY>(),
   };
 
-  const hash = window.location.hash.replace(/^#/, "");
+  const hash = WindowManager.getHash();
 
   const currentSlide = hash ? JSON.parse(hash) : slixProps.initialSlide;
 

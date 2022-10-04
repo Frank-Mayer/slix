@@ -38,7 +38,7 @@ export class Slix<KEY extends SlixKey>
   public set currentSlide(slide: KEY) {
     if (this._slides.has(slide)) {
       this.setState({ ...this.state, currentSlide: slide });
-      window.location.hash = JSON.stringify(slide);
+      WindowManager.setHash(JSON.stringify(slide));
       for (const childWindow of WindowManager.getChildWindows()) {
         childWindow.postMessage(
           {
@@ -64,6 +64,7 @@ export class Slix<KEY extends SlixKey>
     window.addEventListener("message", (ev) => {
       if (ev.data.type === "slix:set:currentSlide") {
         this.setState({ ...this.state, currentSlide: ev.data.value });
+        WindowManager.setHash(JSON.stringify(ev.data.value));
       }
     });
   }
