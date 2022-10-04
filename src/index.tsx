@@ -39,6 +39,7 @@ export const resetCss = async () => {
 export const slix = <KEY extends SlixKey>(slixProps: {
   slides: Map<KEY, React.ReactNode>;
   initialSlide: KEY;
+  animatePresenceMode?: "sync" | "popLayout" | "wait";
 }) => {
   const rootEl = document.createElement("main");
   document.body.appendChild(rootEl);
@@ -57,7 +58,7 @@ export const slix = <KEY extends SlixKey>(slixProps: {
   const currentSlide = hash ? JSON.parse(hash) : slixProps.initialSlide;
 
   ReactDOM.createRoot(rootEl).render(
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode={slixProps.animatePresenceMode || "wait"}>
       {WindowManager.isChild ? (
         <Admin
           slides={slixProps.slides}
