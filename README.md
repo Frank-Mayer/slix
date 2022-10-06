@@ -108,3 +108,9 @@ resetCss();
 | --- | ------------------ |
 | `.` | Open control panel |
 | `f` | Start fullscreen   |
+
+## State
+
+If you open the control panel, the new window has a new React instance and therefore a new state. This means that the state of the control panel is not the same as the state of the main window.
+
+To sync the state, you can use the `useState` hook from Slix. This hook needs a key to identify which state you want to sync. The hook returns a object with a property value.

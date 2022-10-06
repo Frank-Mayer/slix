@@ -1,3 +1,5 @@
+import { useStateStoragePrefix } from "../hooks";
+
 export const isChild =
   Boolean(window.opener) &&
   window.opener.location.origin === window.location.origin;
@@ -17,6 +19,12 @@ export const getParent = (): Window => {
 };
 
 if (!isChild) {
+  for (const storageKey of Object.keys(localStorage)) {
+    if (storageKey.startsWith(useStateStoragePrefix)) {
+      localStorage.removeItem(storageKey);
+    }
+  }
+
   window.addEventListener("keypress", (ev) => {
     switch (ev.key) {
       case ".":

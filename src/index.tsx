@@ -79,4 +79,6 @@ export * from "./Slix";
 export * from "./controllers/index";
 export * from "./animations/index";
 export * from "./Slide";
+export * from "./hooks/index";
+
 export default slix;
