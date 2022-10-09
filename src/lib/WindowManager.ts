@@ -37,6 +37,7 @@ if (!isChild) {
           if (child) {
             children.push(child);
           }
+          document.documentElement.requestFullscreen();
         }
         break;
 
