@@ -42,14 +42,7 @@ if (!isChild) {
 
       case "f":
         {
-          console.log("f key pressed, full screen");
           document.documentElement.requestFullscreen();
-        }
-        break;
-
-      default:
-        {
-          console.log("key pressed", ev.key);
         }
         break;
     }

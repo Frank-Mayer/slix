@@ -25,7 +25,6 @@ export function useState<T>(key: string, initialValue: T) {
 
   Object.defineProperty(stateObject, "value", {
     get: () => {
-      console.debug("get", _key, state[0]);
       return state[0];
     },
     set: (newValue: T) => {
@@ -33,7 +32,6 @@ export function useState<T>(key: string, initialValue: T) {
         newValue !== state[0] &&
         JSON.stringify(newValue) !== localStorage.getItem(_key)
       ) {
-        console.debug("set", _key, newValue);
         state[1](newValue);
         localStorage.setItem(_key, JSON.stringify(newValue));
       }
