@@ -1,11 +1,11 @@
 import type { ISlixComp } from "../ISlixComp";
 import type { SlixKey } from "../Slix";
 
-export const controllerRegistry = new FinalizationRegistry<BaseController<any>>(
-  (controller) => {
-    controller.dispose();
-  }
-);
+export const controllerRegistry = new FinalizationRegistry<
+  BaseController<SlixKey>
+>((controller) => {
+  (controller as any).dispose();
+});
 
 export abstract class BaseController<KEY extends SlixKey> {
   private _slixEl: WeakRef<ISlixComp<KEY>>;
@@ -37,5 +37,5 @@ export abstract class BaseController<KEY extends SlixKey> {
     }
   }
 
-  public abstract dispose(): void;
+  protected abstract dispose(): void;
 }
